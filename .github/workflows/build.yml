@@ -1,7 +1,7 @@
 name: Project Release
 on: [push]
 env:
-  VERSION: "0.1.1659118143"
+  VERSION: 0.1.1659118143
 jobs:
   release:
     name: Build MD5 Endpoint
@@ -31,7 +31,7 @@ jobs:
       with:
         allowUpdates: True
         tag: ${VERSION}
-        name: Beta - ${{ VERSION }}
+        name: Beta - ${VERSION}
         bodyFile: docs/md/release.md
         prerelease: True
         artifacts: src/main.cpp
