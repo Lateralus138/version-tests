@@ -8,6 +8,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build Enpoint
+    - env:
+        VERSION: "0.1.1659118143"
       run: |
         file=src/main.cpp
         [[ -f "$file" ]] || exit 127
@@ -29,9 +31,9 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         allowUpdates: True
-        tag: 0.1.1659118143
-        name: Beta - ${{ github.event.release.name }}
-        bodyFile: ./docs/md/release.md
+        tag: ${VERSION}
+        name: Beta - ${VERSION}
+        bodyFile: docs/md/release.md
         prerelease: True
-        artifacts: ./src/main.cpp
+        artifacts: src/main.cpp
         token: ${{ secrets.GITHUB_TOKEN }}
