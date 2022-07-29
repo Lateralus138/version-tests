@@ -1,7 +1,7 @@
 name: Project Release
 on: [push]
 env:
-  VERSION_NUMBER: 0.1.1659118143
+  VERSION_NUMBER: 0
 jobs:
   release:
     name: Build MD5 Endpoint
@@ -24,10 +24,10 @@ jobs:
         git add docs/json/*
         git config --global user.name 'Lateralus138'
         git config --global user.email 'Lateralus138@users.noreply.github.com'
-        git commit --allow-empty -am "Pushed $(printf '%s ' docs/json/*) of $gittag to master - $(date -u)"
         git tag -a v0.1.0.1.1659118143 -m "Beta - v0.1.0.1.1659118143"
         gittag=$(git tag | cut -d 'v' -f2-)
         echo "VERSION_NUMBER=${gittag}" >> $GITHUB_ENV
+        git commit --allow-empty -am "Pushed $(printf '%s ' docs/json/*) of $gittag to master - $(date -u)"
         git push --force origin master
     - uses: ncipollo/release-action@v1
       with:
