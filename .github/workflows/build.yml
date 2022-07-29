@@ -1,5 +1,7 @@
 name: Project Release
 on: [push]
+env:
+  VERSION_NUMBER: 0.1.1659118143
 jobs:
   release:
     name: Build MD5 Endpoint
@@ -19,8 +21,6 @@ jobs:
         fi
         echo -e "$main_cpp_md5_text" > "docs/json/main_cpp_md5.json"
         sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum $file | cut -d' ' -f 1)\"/g" "docs/json/main_cpp_md5.json"
-        git tag
-        echo $GITHUB_ENV
         git add docs/json/*
         git config --global user.name 'Lateralus138'
         git config --global user.email 'Lateralus138@users.noreply.github.com'
@@ -29,8 +29,8 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         allowUpdates: True
-        tag: ${VERSION}
-        name: Beta - ${VERSION}
+        tag: ${{ env.VERSION_NUMBER }}
+        name: Beta - v${{ env.VERSION_NUMBER }}
         bodyFile: docs/md/release.md
         prerelease: True
         artifacts: src/main.cpp
