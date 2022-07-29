@@ -1,7 +1,10 @@
 name: Project Release
 on: [push]
 env:
-  VERSION_NUMBER: 0
+  VERSION_PROGRAM: 0
+  VERSION_FILE: 0
+  VERSION_EPOCH: 0.0.1659135140
+  VERSION_NUMBER: ${{ env.VERSION_PROGRAM }}.${{ env.VERSION_FILE }}.${{ env.VERSION_EPOCH }}
 jobs:
   release:
     name: Build MD5 Endpoint
@@ -25,7 +28,7 @@ jobs:
         git config --global user.name 'Lateralus138'
         git config --global user.email 'Lateralus138@users.noreply.github.com'
         git tag | xargs -I % git tag -d "%"
-        git tag v0.1.$(date +%s)
+        git tag v${{ env.VERSION_NUMBER }}
         gittag=$(git tag | cut -d 'v' -f2-)
         echo "VERSION_NUMBER=${gittag}" >> $GITHUB_ENV
         git commit --allow-empty -am "Pushed $(printf '%s ' docs/json/*) of $gittag to master - $(date -u)"
