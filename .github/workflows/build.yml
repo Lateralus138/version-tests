@@ -24,7 +24,8 @@ jobs:
         git add docs/json/*
         git config --global user.name 'Lateralus138'
         git config --global user.email 'Lateralus138@users.noreply.github.com'
-        git tag -a v0.1.0.1.1659118143 -m "Beta - v0.1.0.1.1659118143"
+        git tag | xargs git tag -d
+        git tag -a v0.1.1659118143 -m "Beta - v0.1.1659118143"
         gittag=$(git tag | cut -d 'v' -f2-)
         echo "VERSION_NUMBER=${gittag}" >> $GITHUB_ENV
         git commit --allow-empty -am "Pushed $(printf '%s ' docs/json/*) of $gittag to master - $(date -u)"
