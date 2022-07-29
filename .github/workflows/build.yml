@@ -1,6 +1,7 @@
 name: Project Release
 on: [push]
-
+env:
+  VERSION: "0.1.1659118143"
 jobs:
   release:
     name: Build MD5 Endpoint
@@ -8,8 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build Enpoint
-    - env:
-        VERSION: "0.1.1659118143"
       run: |
         file=src/main.cpp
         [[ -f "$file" ]] || exit 127
