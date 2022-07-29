@@ -21,8 +21,9 @@ jobs:
         fi
         echo -e "$main_cpp_md5_text" > "docs/json/main_cpp_md5.json"
         sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum $file | cut -d' ' -f 1)\"/g" "docs/json/main_cpp_md5.json"
-        export gittag=$(git tag | cut -d 'v' -f2-)
-        echo "VERSION_NUMBER=$gittag" >> $GITHUB_ENV
+        git tag -a v0.1.0.1.1659118143 -m "Beta - v0.1.0.1.1659118143"
+        gittag=$(git tag | cut -d 'v' -f2-)
+        echo "VERSION_NUMBER=${gittag}" >> $GITHUB_ENV
         git add docs/json/*
         git config --global user.name 'Lateralus138'
         git config --global user.email 'Lateralus138@users.noreply.github.com'
